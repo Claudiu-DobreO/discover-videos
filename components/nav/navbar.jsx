@@ -1,13 +1,23 @@
+import { useState } from 'react';
 import Link from "next/link";
+import Image from 'next/image';
 import styles from "./navbar.module.css";
 
 const Navbar = ({ username }) => {
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const handleShowDropdown = () => {
+        setShowDropdown((prev) => !prev);
+    };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         {/* Logo */}
         <Link href="/" className={styles.logoLink}>
-          <div className={styles.logoWrapper}>Netflix</div>
+          <div className={styles.logoWrapper}>
+            <Image src='/static/netflix.svg' alt='netflix logo' width={128} height={34} />
+          </div>
         </Link>
 
         {/* Nav items */}
@@ -23,19 +33,21 @@ const Navbar = ({ username }) => {
         {/* User dropdown */}
         <nav className={styles.navContainer}>
           <div>
-            <button className={styles.usernameBtn}>
+            <button className={styles.usernameBtn} onClick={handleShowDropdown}>
               <p className={styles.username}>{username}</p>
-              {/* Expand more icon could go here */}
+              <Image src={'/static/expand-more.svg'} alt='expand dropdown' width={24} height={24} />
             </button>
 
-            <div className={styles.navDropdown}>
-              <div>
-                <Link href="/login" className={styles.linkName}>
-                  Sign out
-                </Link>
-                <div className={styles.lineWrapper}></div>
-              </div>
-            </div>
+            {showDropdown && (
+                <div className={styles.navDropdown}>
+                    <div> 
+                        <Link href="/login" className={styles.linkName}>
+                        Sign out
+                        </Link>
+                        <div className={styles.lineWrapper}></div>
+                    </div>
+                </div>
+            )}
           </div>
         </nav>
       </div>
