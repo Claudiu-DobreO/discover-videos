@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         pathname: "**", // allow all paths
       },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "**", // allow all paths
+      },
     ],
   },
 };

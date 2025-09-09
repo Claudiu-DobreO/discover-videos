@@ -2,9 +2,13 @@ import Head from "next/head";
 import Navbar from '@/components/nav/navbar';
 import Banner from "@/components/banner/banner";
 import SectionCards from "@/components/card/section-cards";
+import { getVideos } from "@/lib/videos";
 import styles from "@/styles/Home.module.css";
 
 export default function Home() {
+  const disneyVideos = getVideos();
+  console.log({ disneyVideos })
+
   return (
     <>
       <Head>
@@ -25,7 +29,7 @@ export default function Home() {
         />
 
         <div className={styles.sectionWrapper}>
-          <SectionCards title='Disney' />
+          <SectionCards title='Disney' videos={disneyVideos} size='large' />
         </div>
         
       </div>
