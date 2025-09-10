@@ -5,10 +5,14 @@ import SectionCards from "@/components/card/section-cards";
 import { getVideos } from "@/lib/videos";
 import styles from "@/styles/Home.module.css";
 
-export default function Home() {
+export const getServerSideProps = async () => {
   const disneyVideos = getVideos();
   console.log({ disneyVideos })
 
+  return { props: { disneyVideos }};
+}
+
+export default function Home({ disneyVideos }) {
   return (
     <>
       <Head>
