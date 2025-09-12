@@ -2,6 +2,10 @@
   margin-top: 1.5rem;
 }
 
+.page {
+  padding-bottom: 4rem;;
+}
+
 @media (prefers-color-scheme: dark) {
   .page {
     --gray-rgb: 255, 255, 255;
