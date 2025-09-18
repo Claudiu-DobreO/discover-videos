@@ -23,11 +23,11 @@ export default function Home({ disneyVideos, travelVideos, productivityVideos, p
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      
+
       <div
         className={`${styles.page}`}
       > 
-        <Navbar username='claudu@claudiu.com' />
+        <Navbar />
         
         <Banner  
           title='Clifford the red dog'
