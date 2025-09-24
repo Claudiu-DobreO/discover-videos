@@ -24,12 +24,11 @@ export default function Home({ disneyVideos, travelVideos, productivityVideos, p
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div
-        className={`${styles.page}`}
-      > 
+      <div className={`${styles.page}`}> 
         <Navbar />
         
-        <Banner  
+        <Banner 
+          videoId="4zH5iYM4wJo" 
           title='Clifford the red dog'
           subtitle='a very cute dog'
           imgUrl='/static/clifford.webp'
