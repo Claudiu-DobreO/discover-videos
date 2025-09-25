@@ -4,10 +4,7 @@ import styles from '../../styles/Video.module.css';
 
 Modal.setAppElement("#__next");
 
-const Video = () => {
-    const router = useRouter();
-    const { videoId } = router.query;
-
+export const getStaticProps = async () => {
     const video = {
         title: 'Clifford the red dog',
         publishedTime: '2021-01-01',
@@ -15,6 +12,29 @@ const Video = () => {
         channelTitle: 'Paramount Pictures',
         viewCount: '100,000',
     };
+
+    return {
+        props: { video },
+        revalidate: 10,
+    };
+};
+
+export const getStaticPaths = async () => {
+    const listOfVideos = ['mYfJxlgR2jw', '4zH5iYM4wJo', 'KCPEHsAViiQ'];
+
+    const paths = listOfVideos.map((videoId) => ({
+        params: { videoId },
+    }));
+    
+    return {
+        paths,
+        fallback: 'blocking',
+    };
+};
+
+const Video = ({ video }) => {
+    const router = useRouter();
+    const { videoId } = router.query;
 
     const { title, publishedTime, description, channelTitle, viewCount } = video;
 
