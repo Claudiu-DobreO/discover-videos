@@ -30,7 +30,6 @@ const Navbar = () => {
 
     try {
       await magic.user.logout();
-      console.log(await magic.user.isLoggedIn()); // => `false`
       router.push('/login');
     } catch (error) {
       console.error('Something went wrong with the sign ou: ', error);

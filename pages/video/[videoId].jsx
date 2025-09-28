@@ -1,20 +1,17 @@
 import { useRouter } from "next/router";
 import Modal from 'react-modal';
+import NavBar from "@/components/nav/navbar";
+import { getVideoById } from "@/lib/videos";
 import styles from '../../styles/Video.module.css';
 
 Modal.setAppElement("#__next");
 
-export const getStaticProps = async () => {
-    const video = {
-        title: 'Clifford the red dog',
-        publishedTime: '2021-01-01',
-        description: 'A big red dog that is supper cute.  Can he get any bigger?',
-        channelTitle: 'Paramount Pictures',
-        viewCount: '100,000',
-    };
+export const getStaticProps = async (context) => {
+    const videoId = context.params.videoId;
+    const videoArray = await getVideoById(videoId);
 
     return {
-        props: { video },
+        props: { video: videoArray.length > 0 ? videoArray[0] : {} },
         revalidate: 10,
     };
 };
@@ -36,10 +33,11 @@ const Video = ({ video }) => {
     const router = useRouter();
     const { videoId } = router.query;
 
-    const { title, publishedTime, description, channelTitle, viewCount } = video;
+    const { title, publishedTime, description, channelTitle, viewCount = 0 } = video;
 
     return (
         <div className={styles.container}>
+            <NavBar />
             <Modal
                 isOpen={true}
                 contentLabel="Example Modal"

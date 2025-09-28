@@ -15,7 +15,6 @@ export default function App({ Component, pageProps }: AppProps) {
         if (!magic) return; // SSR
 
         const isLoggedIn = await magic.user.isLoggedIn();
-        console.log({isLoggedIn});
 
         if (isLoggedIn) {
           router.push('/');

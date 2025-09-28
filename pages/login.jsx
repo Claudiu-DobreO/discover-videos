@@ -38,13 +38,12 @@ const Login = () => {
                 try {
                     setIsLoading(true);
                     const didToken = await magic.auth.loginWithEmailOTP({ email });
-                    console.log({didToken});
 
                     if (didToken) {
                         router.push('/');
                     }
                 } catch (error) {
-                    console.log("Something went wrong logging in: ". error);
+                    console.error("Something went wrong logging in: ". error);
                     setIsLoading(false);
                 }
                 
