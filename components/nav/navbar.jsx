@@ -14,8 +14,10 @@ const Navbar = () => {
     const getUsername = async () => {
       try {
         const { email } = await magic.user.getInfo();
+        const didToken = await magic.user.getIdToken();
+        console.log('didToken: ', didToken);
 
-          if (email) setUsername(email);
+        if (email) setUsername(email);
       } catch (error) {
         console.error('Something went wrong retrieving the email address: ', error);
         setUsername('');

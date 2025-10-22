@@ -33,22 +33,30 @@ const Login = () => {
         e.preventDefault();
 
         if (email) {
-            if (email === 'claudiu.dobre75@gmail.com') {
-                // log in a user by their email
-                try {
-                    setIsLoading(true);
-                    const didToken = await magic.auth.loginWithEmailOTP({ email });
+            try {
+                setIsLoading(true);
+                const didToken = await magic.auth.loginWithEmailOTP({ email });
 
-                    if (didToken) {
+                if (didToken) {
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${didToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    const data = await response.json();
+                    if (data.done) {
                         router.push('/');
+                    } else {
+                        setUserMsg('Something went wrong logging in');
+                        setIsLoading(false);
                     }
-                } catch (error) {
-                    console.error("Something went wrong logging in: ". error);
-                    setIsLoading(false);
                 }
-                
-            } else {
-                setUserMsg('Something went wrong logging in')
+            } catch (error) {
+                console.error("Something went wrong logging in: ", error);
+                setUserMsg('Something went wrong logging in');
                 setIsLoading(false);
             }
         } else {
