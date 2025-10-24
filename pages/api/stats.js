@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import { getVideoStatsByUserAndVideo, updateStats, insertStats } from '../../lib/db/hasura';
+import { getUserIdFromToken } from '../../lib/utils';
 
 const stats = async (req, res) => {
     try {
@@ -14,9 +14,10 @@ const stats = async (req, res) => {
             return res.status(400).json({ message: 'Video ID is required' });
         }
 
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        const userId = decodedToken.issuer;
-        
+        const userId = await getUserIdFromToken(token);
+        if (!userId) {
+            return res.status(403).json({ message: 'Forbidden' });
+        }
 
         const videoStats = await getVideoStatsByUserAndVideo(userId, videoId, token);
         const hasStats = videoStats?.length > 0;
