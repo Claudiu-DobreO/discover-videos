@@ -9,6 +9,7 @@ const Navbar = () => {
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
   const [username, setUsername] = useState('');
+  const [didToken, setDidToken] = useState('');
 
   useEffect(() => {
     const getUsername = async () => {
@@ -18,6 +19,7 @@ const Navbar = () => {
         console.log('didToken: ', didToken);
 
         if (email) setUsername(email);
+        if (didToken) setDidToken(didToken);
       } catch (error) {
         console.error('Something went wrong retrieving the email address: ', error);
         setUsername('');
@@ -31,8 +33,21 @@ const Navbar = () => {
     e.preventDefault();
 
     try {
-      await magic.user.logout();
-      router.push('/login');
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${didToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.done) {
+        router.push('/login');
+      } else {
+        console.error('Something went wrong with the sign out');
+      }
     } catch (error) {
       console.error('Something went wrong with the sign ou: ', error);
       router.push('/login');
@@ -59,7 +74,7 @@ const Navbar = () => {
             <Link href="/" className={styles.navItem}>Home</Link>
           </li>
           <li>
-            <Link href="/browser/my-list" className={styles.navItem2}>My List</Link>
+            <Link href="/browse/my-list" className={styles.navItem2}>My List</Link>
           </li>
         </ul>
 

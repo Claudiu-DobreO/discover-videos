@@ -16,7 +16,7 @@
   padding-top: 1.7rem;
   padding-bottom: 1.5rem;
   margin-top: 1.5rem /* 24px */;
-  margin-right: 0.75rem /* 12px */;
+  margin-right: 0.75rem;
   overflow-x: scroll;
   overflow-y: hidden;
 }
