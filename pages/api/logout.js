@@ -13,10 +13,8 @@ const logout = async (req, res) => {
         removeTokenCookie(res);
 
         try {
-            console.log("maginAdmin Users: ", magicAdmin.users);
             await magicAdmin.users.logoutByIssuer(userId);
         } catch (error) {
-            console.log("User's session with Magic already expired");
             console.error("Error occurred while logging out magic user", error);
         }
 

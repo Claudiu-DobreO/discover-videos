@@ -15,8 +15,6 @@ const Navbar = () => {
     const getUsername = async () => {
       try {
         const { email } = await magic.user.getInfo();
-        const didToken = await magic.user.getIdToken();
-        console.log('didToken: ', didToken);
 
         if (email) setUsername(email);
         if (didToken) setDidToken(didToken);

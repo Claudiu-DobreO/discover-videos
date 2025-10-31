@@ -8,16 +8,6 @@ import styles from "@/styles/MyList.module.css";
 export const getServerSideProps = async (context) => {
     const { userId, token } = useRedirectUser(context);
 
-    if (!userId) {
-        return {
-            props: {},
-            redirect: {
-                destination: '/login',
-                permanent: false,
-            },
-        };
-    }
-
     const myListVideos = await getFavouritedVideos(userId, token);
     return {
         props: {
